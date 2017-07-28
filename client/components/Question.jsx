@@ -1,24 +1,20 @@
 import React from 'react'
 import { render } from 'react-dom'
-
-
 import Footer from './Footer'
 
 class Questions extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.assessAnswer = this.assessAnswer.bind(this)
   }
-  assessAnswer(evt) {
+  assessAnswer (evt) {
     const selectedAnswer = evt.target.name
     const correctAnswer = this.props.question.personId || 1
     if (correctAnswer === Number(selectedAnswer)) {
       this.props.incrementScore()
     }
-
     console.log(this.props.numQuestions)
     console.log(this.props.qid)
-
     const nextqid = Number(this.props.match.params.qid) + 1
     if (nextqid < this.props.numQuestions) {
       this.props.history.push('/quiz/' + nextqid)
@@ -27,7 +23,7 @@ class Questions extends React.Component {
     }
   }
 
-  render() {
+  render () {
     return (
       <div className='question-page'>
         <div className='question'>
@@ -41,19 +37,16 @@ class Questions extends React.Component {
               <div className='person-img' key={personObj.id}>
 
                 <button onClick={this.assessAnswer} name={personObj.id}>
-                  <img src={`/images/${personImg}.png`} name={personObj.id} />
-
+                  <img src={`/images/${personImg}.png`} name={personObj.id} className="actual-img" />
                 </button></div>)
           })}
         </div>
         <div>
-        <Footer score={this.props.score}/>
-          </div>
-
+          <Footer score={this.props.score}/>
+        </div>
       </div>
     )
   }
-
 }
 
 export default Questions
